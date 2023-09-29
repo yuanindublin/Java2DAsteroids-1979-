@@ -1,35 +1,34 @@
 package com.example.asteroids;
 import javafx.scene.shape.Polygon;
 import java.util.Random;
-// import javafx.scene.GraphicsContext;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PolygonFactory {
 
     public Polygon createPolygon(double size) {
         Random rnd = new Random();
-        
-        Polygon polygon = new Polygon();// Create a new Polygon object
+        List<Double> points = new ArrayList<>(); // Create a list to store vertex coordinates
 
-        // Calculate the coordinates for the vertices of the polygon using trigonometric functions
-        double c1 = Math.cos(Math.PI * 2 / 5);
-        double c2 = Math.cos(Math.PI / 5);
-        double s1 = Math.sin(Math.PI * 2 / 5);
-        double s2 = Math.sin(Math.PI * 4 / 5);
+        int numVertices = 12; // Number of vertices for the jagged shape
 
-        // Set the points of the polygon using the calculated coordinates
-        polygon.getPoints().addAll(
-            size, 0.0,
-            size * c1, -1 * size * s1,
-            -1 * size * c2, -1 * size * s2,
-            -1 * size * c2, size * s2,
-            size * c1, size * s1);
+        // Calculate random angles for the vertices
+        for (int i = 0; i < numVertices; i++) {
+            double angle = Math.PI * 2 * i / numVertices + (rnd.nextDouble() - 0.5) * Math.PI / 5; // Add random variation to the angles
+            double x = size * Math.cos(angle);
+            double y = size * Math.sin(angle);
 
-        // Add random changes to the coordinates of the vertices of the polygon
-        for (int i = 0; i < polygon.getPoints().size(); i++) {
-            int change = rnd.nextInt(5) - 2; // Random change between -2 and 2
-            polygon.getPoints().set(i, polygon.getPoints().get(i) + change); // Apply the random change to the coordinate
+            points.add(x);
+            points.add(y);
         }
+
+        Polygon polygon = new Polygon(); // Create a new Polygon object
+        polygon.getPoints().addAll(points); // Add the coordinates to the polygon's points
+
+        // Apply a random rotation to the entire polygon
+        double randomRotation = rnd.nextDouble() * 360; // Random rotation angle in degrees
+        polygon.setRotate(randomRotation);
 
         return polygon;// Return the created polygon
     }

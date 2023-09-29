@@ -241,9 +241,11 @@ public class App extends Application {
                 }
                 if (pressedKeys.getOrDefault(KeyCode.UP, false)) { // If the up key is pressed, the ship accelerates
                     ship.accelerate();
-                    ship.character.setFill(Color.WHITE); // Change the color of the ship to white when accelerating
+                    // ship.character.setFill(Color.RED); // Change the color of the ship to white when accelerating
+                    ship.changeShape();
                     thrustTimeline = new Timeline(new KeyFrame(Duration.seconds(0.2), event -> {
-                        ship.character.setFill(Color.TRANSPARENT);
+                        // ship.character.setFill(Color.TRANSPARENT);
+                        ship.restoreShape();
                     }));
                     thrustTimeline.play();
                 }

@@ -19,6 +19,7 @@ public class Alien extends Character{
     public Alien(int x, int y) {
         super(new Polygon(points), x, y);
         super.getCharacter().setRotate(45); // set the rotation of the alien ship to 45 degrees
+        super.getCharacter().setStrokeWidth(1.8); 
     }
 
     @Override
